@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mio Store</title>
+    <link rel="icon" type="image/x-icon" href="https://files.catbox.moe/2yxrbx.jpeg">
+    <meta name="description" content="Download aplikasi Mio Official ID dan berbagai aplikasi premium lainnya. Update terbaru dan fitur terbaik tersedia di Mio Store.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Mio Store - Official App Store">
+    <meta property="og:description" content="Download aplikasi Mio Official ID dan berbagai aplikasi premium lainnya.">
+    <meta property="og:image" content="https://files.catbox.moe/2yxrbx.jpeg">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Mio Store - Official App Store">
+    <meta property="twitter:description" content="Download aplikasi Mio Official ID dan berbagai aplikasi premium lainnya.">
+    <meta property="twitter:image" content="https://files.catbox.moe/2yxrbx.jpeg">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #111114;
+            --bg-warm: #161519;
+            --surface: #1c1b21;
+            --surface-hover: #232229;
+            --accent: #d4785c;
+            --accent-soft: rgba(212, 120, 92, 0.12);
+            --green: #7eb89a;
+            --green-soft: rgba(126, 184, 154, 0.12);
+            --text: #e8e4de;
+            --text-dim: #918b84;
+            --text-dimmer: #5c5852;
+            --border: rgba(255,255,255,0.05);
+            --radius: 14px;
+            --radius-sm: 10px;
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding-bottom: 75px;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.025;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-size: 200px;
+        }
+
+        header {
+            position: fixed; top: 0; left: 0; width: 100%;
+            background: rgba(17,17,20,0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            padding: 14px 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            display: flex; align-items: center; gap: 9px;
+            font-weight: 600; font-size: 17px; color: var(--text);
+            letter-spacing: -0.2px;
+        }
+        .logo span { color: var(--accent); }
+
+        .bell-btn {
+            position: relative; cursor: pointer;
+            width: 36px; height: 36px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 10px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            font-size: 15px;
+            transition: all 0.2s ease;
+        }
+        .bell-btn:hover { color: var(--text); background: var(--surface-hover); }
+        .bell-btn .dot {
+            position: absolute; top: 6px; right: 7px;
+            width: 7px; height: 7px;
+            background: var(--accent);
+            border-radius: 50%;
+            border: 1.5px solid var(--bg);
+        }
+
+        .music-bar {
+            margin: 68px 16px 0 16px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 12px 14px;
+            display: flex; align-items: center; gap: 12px;
+        }
+
+        .music-bar .art {
+            width: 42px; height: 42px;
+            border-radius: 10px;
+            background: var(--accent-soft);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .music-bar .meta { flex: 1; min-width: 0; }
+        .music-bar .meta .title {
+            font-size: 13px; font-weight: 600;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .music-bar .meta .sub {
+            font-size: 11px; color: var(--text-dim); margin-top: 1px;
+        }
+
+        .play-btn {
+            width: 38px; height: 38px;
+            background: var(--accent);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 13px;
+            cursor: pointer; border: none;
+            flex-shrink: 0;
+            transition: all 0.15s ease;
+        }
+        .play-btn:active { transform: scale(0.93); }
+
+        .heading {
+            padding: 22px 18px 12px;
+            font-size: 15px; font-weight: 600;
+            color: var(--text-dim);
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        .carousel-wrap {
+            overflow-x: scroll; overflow-y: hidden;
+            padding: 0 18px 4px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            cursor: grab;
+        }
+        .carousel-wrap::-webkit-scrollbar { display: none; }
+        .carousel-wrap.grabbing { cursor: grabbing; }
+        .carousel-track { display: flex; gap: 12px; }
+
+        .slide {
+            min-width: 240px; height: 140px;
+            border-radius: var(--radius);
+            overflow: hidden; position: relative;
+            flex-shrink: 0;
+        }
+        .slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .slide .label {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            padding: 8px 10px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.65));
+            font-size: 12px; font-weight: 500;
+        }
+
+        .products {
+            padding: 0 16px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 14px;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: border-color 0.2s ease;
+        }
+        .card:hover { border-color: rgba(255,255,255,0.1); }
+
+        .card-top {
+            position: relative;
+            height: 160px;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+        }
+        .card-top::before {
+            content: '';
+            position: absolute; inset: -15px;
+            background-size: cover; background-position: center;
+            filter: blur(18px); opacity: 0.18;
+            z-index: 0;
+        }
+        .card:nth-child(1) .card-top::before { background-image: url("https://files.catbox.moe/xg9kwq.jpg"); }
+        .card:nth-child(2) .card-top::before { background-image: url("https://files.catbox.moe/xg9kwq.jpg"); }
+        .card:nth-child(3) .card-top::before { background-image: url("https://files.catbox.moe/xg9kwq.jpg"); }
+        .card:nth-child(4) .card-top::before { background-image: url("https://files.catbox.moe/xg9kwq.jpg"); }
+
+        .card-icon {
+            width: 100px; height: 100px;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative; z-index: 1;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+        }
+        .card-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        .card-body { padding: 14px 15px 16px; }
+        .card-body h3 {
+            font-size: 15px; font-weight: 600;
+            margin-bottom: 6px; color: var(--text);
+        }
+        .card-body p {
+            font-size: 12px; color: var(--text-dim);
+            line-height: 1.5;
+            height: 54px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            margin-bottom: 14px;
+        }
+
+        .card-btns { display: flex; gap: 8px; }
+        .btn {
+            flex: 1; padding: 9px 0;
+            border-radius: var(--radius-sm);
+            border: none;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 12px; font-weight: 600;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 5px;
+            transition: all 0.15s ease;
+            text-decoration: none;
+        }
+        .btn-primary { background: var(--accent); color: #fff; }
+        .btn-primary:active { opacity: 0.85; }
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-dim);
+            border: 1px solid var(--border);
+        }
+        .btn-ghost:active { background: var(--surface-hover); }
+
+        /* ===== DEV PROFILE ===== */
+        .dev-profile {
+            margin: 8px 16px 0;
+            border-radius: var(--radius);
+            overflow: hidden;
+            position: relative;
+            min-height: 320px;
+            border: 1px solid var(--border);
+        }
+
+        .dev-video-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+        .dev-video-bg video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .dev-video-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(17,17,20,0.5) 0%,
+                rgba(17,17,20,0.7) 40%,
+                rgba(17,17,20,0.88) 100%
+            );
+            z-index: 1;
+        }
+
+        .dev-content {
+            position: relative;
+            z-index: 2;
+            padding: 28px 20px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .dev-avatar {
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2.5px solid rgba(212,120,92,0.35);
+            margin-bottom: 14px;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        .dev-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .dev-avatar .online-dot {
+            position: absolute;
+            bottom: 3px; right: 3px;
+            width: 12px; height: 12px;
+            background: var(--green);
+            border-radius: 50%;
+            border: 2.5px solid var(--bg);
+        }
+
+        .dev-name {
+            font-size: 17px; font-weight: 700;
+            color: var(--text);
+            margin-bottom: 2px;
+            text-shadow: 0 1px 6px rgba(0,0,0,0.4);
+        }
+        .dev-handle {
+            font-size: 12px; color: var(--accent);
+            margin-bottom: 10px;
+        }
+        .dev-bio {
+            font-size: 12px; color: var(--text-dim);
+            line-height: 1.55;
+            max-width: 280px;
+            margin-bottom: 16px;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        }
+
+        .dev-stats {
+            display: flex;
+            width: 100%;
+            background: rgba(0,0,0,0.35);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(255,255,255,0.06);
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+        .dev-stat {
+            flex: 1;
+            padding: 12px 0;
+            text-align: center;
+        }
+        .dev-stat:not(:last-child) {
+            border-right: 1px solid rgba(255,255,255,0.06);
+        }
+        .dev-stat .num {
+            font-size: 16px; font-weight: 700;
+            color: var(--text);
+        }
+        .dev-stat .lbl {
+            font-size: 10px; color: var(--text-dimmer);
+            margin-top: 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .dev-socials { display: flex; gap: 10px; }
+        .dev-social-btn {
+            width: 38px; height: 38px;
+            border-radius: 10px;
+            background: rgba(0,0,0,0.35);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.08);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-dim);
+            font-size: 15px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.15s ease;
+        }
+        .dev-social-btn:hover {
+            color: var(--text);
+            border-color: rgba(255,255,255,0.15);
+            background: rgba(0,0,0,0.5);
+        }
+        .dev-social-btn:active { transform: scale(0.93); }
+
+        /* ===== MODALS ===== */
+        .overlay {
+            display: none;
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 3000;
+            align-items: center; justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+        .overlay.show { display: flex; opacity: 1; }
+
+        .overlay .close-x {
+            position: absolute; top: 16px; right: 18px;
+            font-size: 28px; color: rgba(255,255,255,0.5);
+            cursor: pointer; z-index: 3001;
+            width: 40px; height: 40px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 10px;
+            transition: all 0.15s ease;
+        }
+        .overlay .close-x:hover { color: #fff; background: rgba(255,255,255,0.08); }
+
+        .info-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            max-width: 380px; width: 100%;
+        }
+        .info-box h3 {
+            font-size: 17px; font-weight: 600;
+            margin-bottom: 18px; text-align: center;
+            color: var(--text);
+        }
+
+        .notice {
+            background: var(--accent-soft);
+            border: 1px solid rgba(212,120,92,0.15);
+            color: var(--accent);
+            padding: 11px 14px;
+            border-radius: var(--radius-sm);
+            text-align: center;
+            font-size: 13px; font-weight: 500;
+            margin-bottom: 18px;
+        }
+
+        .links { display: flex; flex-direction: column; gap: 10px; }
+        .link-row {
+            display: flex; align-items: center; gap: 11px;
+            font-size: 13px;
+            padding: 10px 12px;
+            background: var(--bg-warm);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            transition: border-color 0.15s ease;
+        }
+        .link-row:hover { border-color: rgba(255,255,255,0.1); }
+        .link-row i { font-size: 17px; width: 22px; text-align: center; flex-shrink: 0; }
+        .link-row .wa { color: #7eb89a; }
+        .link-row .tt { color: #e8e4de; }
+        .link-row a {
+            color: var(--text-dim);
+            text-decoration: none;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            transition: color 0.15s ease;
+        }
+        .link-row a:hover { color: var(--text); }
+
+        .img-modal-content {
+            max-width: 90%; max-height: 85%;
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+        .img-modal-content img { width: 100%; height: auto; display: block; }
+
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: rgba(22,21,25,0.92);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 8px 0;
+            display: flex; justify-content: center;
+            border-top: 1px solid var(--border);
+            z-index: 1000;
+        }
+        .nav-tab {
+            display: flex; flex-direction: column; align-items: center; gap: 3px;
+            color: var(--text-dimmer);
+            font-size: 10px; cursor: pointer;
+            padding: 4px 16px;
+            transition: color 0.15s ease;
+        }
+        .nav-tab i { font-size: 18px; }
+        .nav-tab.active { color: var(--accent); }
+
+        .toast {
+            position: fixed; bottom: 85px; left: 50%;
+            transform: translateX(-50%) translateY(12px);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            padding: 9px 18px;
+            border-radius: 20px;
+            font-size: 12px;
+            opacity: 0; visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 2000;
+            display: flex; align-items: center; gap: 7px;
+            white-space: nowrap;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+        .toast.show { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+
+        .spacer { height: 16px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            🌸 <span>Mio Store</span>
+        </div>
+        <div class="bell-btn" onclick="openInfoModal()">
+            <i class="fas fa-bell"></i>
+            <span class="dot"></span>
+        </div>
+    </header>
+
+    <div class="music-bar">
+        <div class="art">🎵</div>
+        <div class="meta">
+            <div class="title">lagu</div>
+            <div class="sub">Mio Radio</div>
+        </div>
+        <button class="play-btn" onclick="toggleMusic()">
+            <i class="fas fa-play" id="playIcon"></i>
+        </button>
+        <audio id="bgMusic" loop>
+            <source src="https://files.catbox.moe/7k68lw.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <div class="heading">Cewek Admin</div>
+    <div class="carousel-wrap" id="carouselContainer">
+        <div class="carousel-track" id="carouselTrack">
+            <div class="slide"><img src="https://files.catbox.moe/fnql1z.jpeg" alt=""><div class="label">Mio 1</div></div>
+            <div class="slide"><img src="https://files.catbox.moe/i0o2ws.jpeg" alt=""><div class="label">Mio 2</div></div>
+            <div class="slide"><img src="https://files.catbox.moe/p5e341.jpeg" alt=""><div class="label">Mio 3</div></div>
+            <div class="slide"><img src="https://files.catbox.moe/ivli2m.jpeg" alt=""><div class="label">Mio 4</div></div>
+            <div class="slide"><img src="https://files.catbox.moe/cff3i3.jpeg" alt=""><div class="label">Mio 5</div></div>
+            <div class="slide"><img src="https://files.catbox.moe/fnql1z.jpeg" alt=""><div class="label">Mio 1</div></div>
+            <div class="slide"><img src="https://files.catbox.moe/i0o2ws.jpeg" alt=""><div class="label">Mio 2</div></div>
+            <div class="slide"><img src="https://files.catbox.moe/p5e341.jpeg" alt=""><div class="label">Mio 3</div></div>
+            <div class="slide"><img src="https://files.catbox.moe/ivli2m.jpeg" alt=""><div class="label">Mio 4</div></div>
+            <div class="slide"><img src="https://files.catbox.moe/cff3i3.jpeg" alt=""><div class="label">Mio 5</div></div>
+        </div>
+    </div>
+
+    <div class="spacer"></div>
+
+    <div class="heading">Produk mio</div>
+    <div class="products">
+        <!-- 1 -->
+        <div class="card">
+            <div class="card-top">
+                <div class="card-icon"><img src="https://files.catbox.moe/nb8v1s.jpg" alt=""></div>
+            </div>
+            <div class="card-body">
+                <h3>mio downloader</h3>
+                <p>Bot Telegram ini adalah alat sederhana untuk mengunduh video TikTok tanpa watermark. Cukup kirim link video TikTok, bot akan mengembalikan video berkualitas tinggi langsung ke chat kamu.</p>
+                <div class="card-btns">
+                    <a href="https://t.me/tiktiok_downloader_mio_bot" target="_blank" class="btn btn-primary" onclick="showToast('Membuka link download...')">
+                        <i class="fab fa-telegram-plane"></i> link bot
+                    </a>
+                    <button class="btn btn-ghost" onclick="openModal('https://files.catbox.moe/q5zzn9.jpeg')">
+                        <i class="fas fa-image"></i> Screenshot
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- 2 -->
+        <div class="card">
+            <div class="card-top">
+                <div class="card-icon"><img src="https://cdn.phototourl.com/free/2026-07-31-91392646-4250-4b56-8e3b-237dc0c692b6.jpg" alt=""></div>
+            </div>
+            <div class="card-body">
+                <h3>Mio media</h3>
+                <p>Ruang personal untuk berbagi cerita, ide, dan momen. Temukan komunitas, tunjukkan siapa dirimu, dan biarkan duniamu bersinar.</p>
+                <div class="card-btns">
+                    <a href="https://anime-x-cosplay-lovers.miokuu.web.id/" target="_blank" class="btn btn-primary" onclick="showToast('Membuka website...')">
+                        <i class="fas fa-external-link-alt"></i> website
+                    </a>
+                    <button class="btn btn-ghost" onclick="openModal('https://files.catbox.moe/f3jw9c.jpeg')">
+                        <i class="fas fa-image"></i> Screenshot
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- 3 -->
+        <div class="card">
+            <div class="card-top">
+                <div class="card-icon"><img src="https://alightmtion.com/wp-content/uploads/2025/08/cropped-logo.webp" alt=""></div>
+            </div>
+            <div class="card-body">
+                <h3>am premium gratis</h3>
+                <p>Access premium editing tools with ease. Built for creators, designed for simplicity.</p>
+                <div class="card-btns">
+                    <a href="https://diyymotion.vercel.app" target="_blank" class="btn btn-primary" onclick="showToast('Membuka website...')">
+                        <i class="fas fa-external-link-alt"></i> website
+                    </a>
+                    <button class="btn btn-ghost" onclick="openModal('https://files.catbox.moe/emxe4j.jpg')">
+                        <i class="fas fa-image"></i> Screenshot
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- 4 - mio store bot -->
+        <div class="card">
+            <div class="card-top">
+                <div class="card-icon"><img src="https://files.catbox.moe/2yxrbx.jpeg" alt=""></div>
+            </div>
+            <div class="card-body">
+                <h3>mio store</h3>
+                <p>Bot Telegram untuk jualan produk official dari mio dev. Langsung chat bot, pilih produk, dan order dengan gampang.</p>
+                <div class="card-btns">
+                    <a href="https://t.me/mio_toko_online_bot" target="_blank" class="btn btn-primary" onclick="showToast('Membuka bot...')">
+                        <i class="fab fa-telegram-plane"></i> buka bot
+                    </a>
+                    <button class="btn btn-ghost" onclick="openModal('https://files.catbox.moe/2yxrbx.jpeg')">
+                        <i class="fas fa-image"></i> Lihat
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="spacer"></div>
+
+    <!-- Developer Profile -->
+    <div class="heading">Developer</div>
+    <div class="dev-profile">
+        <div class="dev-video-bg">
+            <video autoplay muted loop playsinline>
+                <source src="https://files.catbox.moe/3a4zwd.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="dev-video-overlay"></div>
+        <div class="dev-content">
+            <div class="dev-avatar">
+                <img src="https://files.catbox.moe/2yxrbx.jpeg" alt="mio dev">
+                <span class="online-dot"></span>
+            </div>
+            <div class="dev-name">mio dev</div>
+            <div class="dev-handle">@ArisDEv</div>
+            <div class="dev-bio">Bikin tools simpel yang beneran kepake. Nggak muluk, yang penting work.</div>
+            <div class="dev-stats">
+                <div class="dev-stat">
+                    <div class="num">4</div>
+                    <div class="lbl">Produk</div>
+                </div>
+                <div class="dev-stat">
+                    <div class="num">2</div>
+                    <div class="lbl">Bot</div>
+                </div>
+                <div class="dev-stat">
+                    <div class="num">2</div>
+                    <div class="lbl">Website</div>
+                </div>
+            </div>
+            <div class="dev-socials">
+                <a href="https://whatsapp.com/channel/0029VbCrjmG6LwHkDpCbEi0z" target="_blank" class="dev-social-btn" title="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://vt.tiktok.com/ZSVm2YLPm/" target="_blank" class="dev-social-btn" title="TikTok">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+                <a href="https://chat.whatsapp.com/DHHAvScSJ0WEQIAPrH3XlF" target="_blank" class="dev-social-btn" title="Group">
+                    <i class="fas fa-users"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="spacer"></div>
+    <div class="spacer"></div>
+
+    <!-- Info Modal -->
+    <div class="overlay" id="infoModal">
+        <span class="close-x" onclick="closeInfoModal()">&times;</span>
+        <div class="info-box">
+            <h3>Informasi Mio Official</h3>
+            <div class="notice">Pesan dari Admin Mio</div>
+            <div class="links">
+                <div class="link-row">
+                    <i class="fab fa-whatsapp wa"></i>
+                    <a href="https://whatsapp.com/channel/0029VbCrjmG6LwHkDpCbEi0z" target="_blank">Saluran WhatsApp Mio Official ID</a>
+                </div>
+                <div class="link-row">
+                    <i class="fab fa-tiktok tt"></i>
+                    <a href="https://vt.tiktok.com/ZSVm2YLPm/" target="_blank">TikTok: @mioDev</a>
+                </div>
+                <div class="link-row">
+                    <i class="fab fa-whatsapp wa"></i>
+                    <a href="https://chat.whatsapp.com/DHHAvScSJ0WEQIAPrH3XlF" target="_blank">Group Mio dev</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div class="overlay" id="imgModal">
+        <span class="close-x" onclick="closeModal()">&times;</span>
+        <div class="img-modal-content">
+            <img src="" alt="Screenshot" id="modalImage">
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <div class="nav-tab active" onclick="scrollToTop()">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle" style="color:var(--green);font-size:13px"></i>
+        <span id="toastMsg">ok</span>
+    </div>
+
+    <script>
+        const audio = document.getElementById('bgMusic');
+        const playIcon = document.getElementById('playIcon');
+        let isPlaying = false;
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                playIcon.className = 'fas fa-play';
+            } else {
+                audio.play().catch(() => {});
+                playIcon.className = 'fas fa-pause';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        const devVideo = document.querySelector('.dev-video-bg video');
+        const devProfile = document.querySelector('.dev-profile');
+        let videoObserved = false;
+        const vidObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (!videoObserved) { devVideo.play().catch(() => {}); videoObserved = true; }
+                } else {
+                    devVideo.pause(); videoObserved = false;
+                }
+            });
+        }, { threshold: 0.2 });
+        vidObserver.observe(devProfile);
+
+        const infoModal = document.getElementById('infoModal');
+        function openInfoModal() { infoModal.classList.add('show'); }
+        function closeInfoModal() { infoModal.classList.remove('show'); }
+        infoModal.addEventListener('click', e => { if (e.target === infoModal) closeInfoModal(); });
+
+        const imgModal = document.getElementById('imgModal');
+        const modalImage = document.getElementById('modalImage');
+        function openModal(src) { modalImage.src = src; imgModal.classList.add('show'); }
+        function closeModal() { imgModal.classList.remove('show'); }
+        imgModal.addEventListener('click', e => { if (e.target === imgModal) closeModal(); });
+
+        const container = document.getElementById('carouselContainer');
+        const track = document.getElementById('carouselTrack');
+        let autoId, interacting = false, resumeTimer;
+        const speed = 0.6;
+
+        function autoScroll() {
+            container.scrollLeft += speed;
+            if (container.scrollLeft >= track.scrollWidth / 2) container.scrollLeft -= track.scrollWidth / 2;
+            if (!interacting) autoId = requestAnimationFrame(autoScroll);
+        }
+        function stopScroll() { cancelAnimationFrame(autoId); }
+        function resumeLater(ms) {
+            clearTimeout(resumeTimer);
+            resumeTimer = setTimeout(() => { interacting = false; autoScroll(); }, ms);
+        }
+
+        container.addEventListener('mouseenter', () => { stopScroll(); interacting = true; });
+        container.addEventListener('mouseleave', () => resumeLater(1500));
+        let down = false, sx, sl;
+        container.addEventListener('mousedown', e => {
+            down = true; interacting = true; stopScroll();
+            container.classList.add('grabbing');
+            sx = e.pageX - container.offsetLeft; sl = container.scrollLeft;
+        });
+        window.addEventListener('mousemove', e => {
+            if (!down) return; e.preventDefault();
+            container.scrollLeft = sl - (e.pageX - container.offsetLeft - sx) * 1.8;
+        });
+        window.addEventListener('mouseup', () => {
+            if (!down) return; down = false;
+            container.classList.remove('grabbing');
+            resumeLater(2500);
+        });
+        container.addEventListener('touchstart', () => { interacting = true; stopScroll(); }, { passive: true });
+        container.addEventListener('touchend', () => resumeLater(2500));
+        autoScroll();
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            document.getElementById('toastMsg').textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2500);
+        }
+
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    </script>
+</body>
+</html>
