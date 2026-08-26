@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Mio Store</title>
-    <link rel="icon" type="image/x-icon" href="https://files.catbox.moe/2yxrbx.jpeg">
+    <link rel="icon" type="image/x-icon" href="https://files.catbox.moe/alahc5.jpeg">
     <meta name="description" content="Download aplikasi Mio Official ID dan berbagai aplikasi premium lainnya. Update terbaru dan fitur terbaik tersedia di Mio Store.">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Mio Store - Official App Store">
     <meta property="og:description" content="Download aplikasi Mio Official ID dan berbagai aplikasi premium lainnya.">
-    <meta property="og:image" content="https://files.catbox.moe/2yxrbx.jpeg">
+    <meta property="og:image" content="https://files.catbox.moe/alahc5.jpeg">
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:title" content="Mio Store - Official App Store">
     <meta property="twitter:description" content="Download aplikasi Mio Official ID dan berbagai aplikasi premium lainnya.">
-    <meta property="twitter:image" content="https://files.catbox.moe/2yxrbx.jpeg">
+    <meta property="twitter:image" content="https://files.catbox.moe/alahc5.jpeg">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -200,6 +200,22 @@
         .card:nth-child(2) .card-top::before { background-image: url("https://files.catbox.moe/xg9kwq.jpg"); }
         .card:nth-child(3) .card-top::before { background-image: url("https://files.catbox.moe/xg9kwq.jpg"); }
         .card:nth-child(4) .card-top::before { background-image: url("https://files.catbox.moe/xg9kwq.jpg"); }
+        .card:nth-child(5) .card-top::before { background-image: url("https://files.catbox.moe/1wjocc.jpeg"); }
+
+        .card-badge {
+            position: absolute;
+            top: 10px; left: 10px;
+            z-index: 2;
+            background: var(--green-soft);
+            border: 1px solid rgba(126, 184, 154, 0.3);
+            color: var(--green);
+            font-size: 10px; font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            backdrop-filter: blur(4px);
+        }
 
         .card-icon {
             width: 100px; height: 100px;
@@ -567,7 +583,7 @@
         <!-- 2 -->
         <div class="card">
             <div class="card-top">
-                <div class="card-icon"><img src="https://cdn.phototourl.com/free/2026-07-31-91392646-4250-4b56-8e3b-237dc0c692b6.jpg" alt=""></div>
+                <div class="card-icon"><img src="https://files.catbox.moe/i1znth.jpeg" alt=""></div>
             </div>
             <div class="card-body">
                 <h3>Mio media</h3>
@@ -603,7 +619,7 @@
         <!-- 4 - mio store bot -->
         <div class="card">
             <div class="card-top">
-                <div class="card-icon"><img src="https://files.catbox.moe/2yxrbx.jpeg" alt=""></div>
+                <div class="card-icon"><img src="https://files.catbox.moe/alahc5.jpeg" alt=""></div>
             </div>
             <div class="card-body">
                 <h3>mio store</h3>
@@ -613,6 +629,25 @@
                         <i class="fab fa-telegram-plane"></i> buka bot
                     </a>
                     <button class="btn btn-ghost" onclick="openModal('https://files.catbox.moe/2yxrbx.jpeg')">
+                        <i class="fas fa-image"></i> Lihat
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- 5 - mio cpanel -->
+        <div class="card">
+            <div class="card-top">
+                <span class="card-badge"><i class="fas fa-bolt"></i> MURAH</span>
+                <div class="card-icon"><img src="https://files.catbox.moe/1wjocc.jpeg" alt=""></div>
+            </div>
+            <div class="card-body">
+                <h3>mio cpanel</h3>
+                <p>Panel Pterodactyl murah dengan server stabil & performa mantap. Cocok buat hosting bot & project kamu. Bisa diperpanjang kapan aja, order langsung via bot!</p>
+                <div class="card-btns">
+                    <a href="https://t.me/mio_cpanel_bot" target="_blank" class="btn btn-primary" onclick="showToast('Membuka bot...')">
+                        <i class="fab fa-telegram-plane"></i> order bot
+                    </a>
+                    <button class="btn btn-ghost" onclick="openModal('https://files.catbox.moe/439gpy.jpeg')">
                         <i class="fas fa-image"></i> Lihat
                     </button>
                 </div>
@@ -633,7 +668,7 @@
         <div class="dev-video-overlay"></div>
         <div class="dev-content">
             <div class="dev-avatar">
-                <img src="https://files.catbox.moe/2yxrbx.jpeg" alt="mio dev">
+                <img src="https://files.catbox.moe/alahc5.jpeg" alt="mio dev">
                 <span class="online-dot"></span>
             </div>
             <div class="dev-name">mio dev</div>
@@ -641,7 +676,7 @@
             <div class="dev-bio">Bikin tools simpel yang beneran kepake. Nggak muluk, yang penting work.</div>
             <div class="dev-stats">
                 <div class="dev-stat">
-                    <div class="num">4</div>
+                    <div class="num">5</div>
                     <div class="lbl">Produk</div>
                 </div>
                 <div class="dev-stat">
