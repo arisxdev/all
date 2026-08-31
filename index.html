@@ -72,7 +72,10 @@
         html { scroll-behavior:smooth; overflow-x:hidden; }
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: var(--paper);
+            background-color: var(--paper);
+            /* kertas titik-titik — sekarang lebih jelas */
+            background-image: radial-gradient(rgba(39,34,29,.085) 1.4px, transparent 1.4px);
+            background-size: 24px 24px;
             color: var(--ink);
             min-height: 100vh;
             padding-bottom: 100px;
@@ -91,7 +94,7 @@
         }
 
         ::selection { background: var(--accent); color: #fff; }
-        section { scroll-margin-top: 84px; }
+        section { scroll-margin-top: 84px; position: relative; }
 
         .ic { display:inline-block; width:1em; height:1em; fill:currentColor; vertical-align:-0.125em; flex-shrink:0; }
 
@@ -104,10 +107,26 @@
             .js .rise { opacity: 1 !important; }
         }
 
+        /* ===== DOODLE BACKGROUND — sekarang BESAR & JELAS ===== */
+        .bgd {
+            position: absolute;
+            z-index: -1;
+            pointer-events: none;
+            opacity: .9;
+            animation: bob 6.5s ease-in-out infinite;
+        }
+        @media (max-width: 640px) { .bgd { opacity: .7; } }
+        @keyframes bob {
+            0%,100% { transform: translateY(0); }
+            50% { transform: translateY(-7px); }
+        }
+
         /* ===== INTRO TYPEWRITER ===== */
         .intro {
             position: fixed; inset: 0;
-            background: var(--paper);
+            background-color: var(--paper);
+            background-image: radial-gradient(rgba(39,34,29,.085) 1.4px, transparent 1.4px);
+            background-size: 24px 24px;
             z-index: 5000;
             display: grid; place-items: center;
             cursor: pointer;
@@ -165,17 +184,22 @@
             transition: width .08s linear;
         }
 
-        /* ===== GRADIENT BLOB ===== */
+        /* ===== GRADIENT BLOB — dikuatkan ===== */
         .blob { position: fixed; border-radius: 50%; pointer-events: none; z-index: -1; }
         .blob-1 {
             width: 520px; height: 520px;
             top: -180px; right: -180px;
-            background: radial-gradient(circle at center, rgba(224,120,86,.13), transparent 62%);
+            background: radial-gradient(circle at center, rgba(224,120,86,.22), transparent 62%);
         }
         .blob-2 {
             width: 560px; height: 560px;
             bottom: -220px; left: -200px;
-            background: radial-gradient(circle at center, rgba(63,143,108,.11), transparent 62%);
+            background: radial-gradient(circle at center, rgba(63,143,108,.19), transparent 62%);
+        }
+        .blob-3 {
+            width: 500px; height: 500px;
+            top: 38%; left: 52%;
+            background: radial-gradient(circle at center, rgba(246,196,83,.16), transparent 62%);
         }
 
         /* ===== ENTRANCE HERO ===== */
@@ -292,7 +316,7 @@
 
         .doodle {
             position: absolute; right: 24px; top: 108px;
-            opacity: .55; pointer-events: none;
+            opacity: .75; pointer-events: none;
             animation: floaty 5s ease-in-out infinite;
         }
         @keyframes floaty {
@@ -529,7 +553,7 @@
         }
         .btn-line:hover { border-style: solid; border-color: var(--ink); color: var(--ink); }
 
-        /* ===== POJOK CURHAT (carousel catatan) ===== */
+        /* ===== POJOK CURHAT ===== */
         .note-wrap { padding: 4px 20px 0; }
 
         .notes-view {
@@ -563,7 +587,6 @@
         .note:nth-child(even) { transform: rotate(.5deg); }
         .note:hover { transform: rotate(0deg) translateY(-3px); }
 
-        /* selotip tiap kertas beda warna, kayak ngambil selotip mana aja yang ada */
         .note:nth-child(1) .tape { left: 40px; transform: rotate(-5deg); background: rgba(63,143,108,.25); }
         .note:nth-child(2) .tape { left: auto; right: 44px; transform: rotate(4deg); background: rgba(224,120,86,.28); }
         .note:nth-child(3) .tape { left: 46px; transform: rotate(-3deg); background: rgba(246,196,83,.4); }
@@ -589,7 +612,6 @@
         }
         .note-heart { flex-shrink: 0; opacity: .75; transform-box: fill-box; transform-origin: center; }
 
-        /* hati berdetak pas lagu galau muter */
         body.sad-on .note-heart { animation: heartbeat 1.7s ease-in-out infinite; }
         @keyframes heartbeat {
             0%,100% { transform: scale(1); }
@@ -599,7 +621,6 @@
             56% { transform: scale(1); }
         }
 
-        /* navigasi catatan */
         .notes-nav {
             display: flex; align-items: center; justify-content: center;
             gap: 14px; margin-top: 8px;
@@ -622,7 +643,6 @@
         }
         .dot.active { background: var(--accent-strong); transform: scale(1.3); }
 
-        /* player lagu galau */
         .sad-player {
             max-width: 430px; margin: 14px auto 0;
             background: var(--card);
@@ -738,6 +758,7 @@
         footer {
             padding: 36px 20px 28px; text-align: center;
             content-visibility: auto; contain-intrinsic-size: auto 130px;
+            position: relative;
         }
         .foot-hand { font-family: 'Caveat', cursive; font-size: 20px; display: inline-block; }
         .foot-sub, .foot-upd { font-size: 11.5px; color: var(--faint); margin-top: 6px; }
@@ -886,6 +907,7 @@
 
     <div class="blob blob-1" aria-hidden="true"></div>
     <div class="blob blob-2" aria-hidden="true"></div>
+    <div class="blob blob-3" aria-hidden="true"></div>
 
     <!-- ===== SPRITE IKON SVG (0 request) ===== -->
     <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -928,6 +950,28 @@
             <path d="M15 3 L18 11 L27 11 L20 17 L22 26 L15 21 L8 26 L10 17 L3 11 L12 11 Z"
                   stroke="#e07856" stroke-width="2" stroke-linejoin="round" fill="rgba(224,120,86,.12)"/>
         </svg>
+
+        <!-- ⭐ sparkle besar (kanan bawah hero) -->
+        <svg class="bgd" style="right:4%; bottom:6%; animation-delay:.8s" width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true" focusable="false">
+            <path d="M24 4 C 25.6 15, 28.5 17.9, 39 19.5 C 28.5 21.1, 25.6 24, 24 35 C 22.4 24, 19.5 21.1, 9 19.5 C 19.5 17.9, 22.4 15, 24 4 Z" fill="rgba(224,120,86,.2)" stroke="#e07856" stroke-width="2.2" stroke-linejoin="round"/>
+            <circle cx="24" cy="19.5" r="2.6" fill="#e07856" opacity=".55"/>
+        </svg>
+        <!-- ☀️ matahari (kiri tengah) -->
+        <svg class="bgd" style="left:2%; top:42%; animation-delay:2s" width="44" height="44" viewBox="0 0 44 44" fill="none" aria-hidden="true" focusable="false">
+            <circle cx="22" cy="22" r="7" fill="rgba(232,176,74,.3)" stroke="#e8b04a" stroke-width="2.2"/>
+            <path d="M22 3 V8.5 M22 35.5 V41 M3 22 H8.5 M35.5 22 H41 M9 9 L12.5 12.5 M31.5 31.5 L35 35 M35 9 L31.5 12.5 M12.5 31.5 L9 35" stroke="#e8b04a" stroke-width="2.4" stroke-linecap="round"/>
+        </svg>
+        <!-- ✳ asterisk (kiri atas) -->
+        <svg class="bgd" style="left:6%; top:14%; animation-delay:1.4s" width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true" focusable="false">
+            <path d="M17 3 V31 M5 9.5 L29 24.5 M29 9.5 L5 24.5" stroke="#e8b04a" stroke-width="2.8" stroke-linecap="round"/>
+        </svg>
+        <!-- konfeti -->
+        <svg class="bgd" style="left:8%; bottom:4%; animation-delay:2.8s" width="60" height="30" viewBox="0 0 60 30" fill="none" aria-hidden="true" focusable="false">
+            <circle cx="8" cy="8" r="3" fill="#e8b04a" opacity=".38"/>
+            <circle cx="28" cy="22" r="2.4" fill="#c96a5e" opacity=".32"/>
+            <circle cx="46" cy="6" r="2.6" fill="#3f8f6c" opacity=".32"/>
+        </svg>
+
         <span class="kicker rise">🌸 toko official mio dev</span>
         <span class="hero-hello rise d1">halo, selamat datang 👋</span>
         <h1 class="hero-title rise d1">Bot, panel, &amp; tools <em>murah</em> — semuanya bikinan sendiri.</h1>
@@ -969,6 +1013,19 @@
 
     <!-- CEWEK ADMIN -->
     <section>
+        <!-- lingkaran sketsa -->
+        <svg class="bgd" style="right:3%; top:16%; animation-delay:1.2s" width="46" height="46" viewBox="0 0 46 46" fill="none" aria-hidden="true" focusable="false">
+            <path d="M23 4 C 33 5, 42 12, 40 23 C 38 34, 29 42, 18 40 C 8 38, 3 29, 6 19 C 8.5 11, 15 4.5, 24 5.5" stroke="#e07856" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        </svg>
+        <!-- zigzag hijau -->
+        <svg class="bgd" style="left:4%; bottom:10%; animation-delay:2.4s" width="72" height="16" viewBox="0 0 72 16" fill="none" aria-hidden="true" focusable="false">
+            <path d="M4 12 L 13 4 L 22 12 L 31 4 L 40 12 L 49 4 L 58 12 L 67 4" stroke="#3f8f6c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <!-- hati -->
+        <svg class="bgd" style="right:8%; bottom:6%; animation-delay:.5s" width="30" height="28" viewBox="0 0 30 28" fill="none" aria-hidden="true" focusable="false">
+            <path d="M15 25 C 7 18, 3 13, 3 8.5 C 3 5, 5.8 3, 8.5 3 C 10.8 3, 12.9 4.3, 15 6.5 C 17.1 4.3, 19.2 3, 21.5 3 C 24.2 3, 27 5, 27 8.5 C 27 13, 23 18, 15 25 Z" fill="rgba(201,106,94,.15)" stroke="#c96a5e" stroke-width="2"/>
+        </svg>
+
         <div class="sec-head">
             <div>
                 <h2>cewek admin</h2>
@@ -1002,6 +1059,29 @@
 
     <!-- PRODUK -->
     <section id="produk">
+        <!-- ✈️ pesawat kertas + jejak -->
+        <svg class="bgd" style="left:3%; top:5%; animation-delay:1.8s" width="56" height="44" viewBox="0 0 56 44" fill="none" aria-hidden="true" focusable="false">
+            <path d="M8 8 L 52 20 L 20 38 L 17 24 Z" fill="rgba(224,120,86,.14)" stroke="#e07856" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M17 24 L 8 8" stroke="#e07856" stroke-width="1.8"/>
+            <path d="M2 40 C 10 37, 18 37, 26 39" stroke="#b04e2e" stroke-width="1.6" stroke-dasharray="5 5" fill="none" stroke-linecap="round" opacity=".6"/>
+        </svg>
+        <!-- ⭐ sparkle -->
+        <svg class="bgd" style="right:4%; top:28%; animation-delay:.9s" width="42" height="42" viewBox="0 0 42 42" fill="none" aria-hidden="true" focusable="false">
+            <path d="M21 3 C 22.4 13, 25 15.6, 35 17 C 25 18.4, 22.4 21, 21 31 C 19.6 21, 17 18.4, 7 17 C 17 15.6, 19.6 13, 21 3 Z" fill="rgba(224,120,86,.2)" stroke="#e07856" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+        <!-- spiral -->
+        <svg class="bgd" style="right:7%; bottom:8%; animation-delay:2.6s" width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true" focusable="false">
+            <path d="M18 18 C 18 14, 23 13, 25 16 C 27 19, 24 23, 20 23 C 15 23, 12 18, 14 13 C 16 7, 23 5, 28 8 C 33 11, 34 18, 30 23" stroke="#e8b04a" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+        </svg>
+        <!-- konfeti -->
+        <svg class="bgd" style="left:6%; bottom:4%; animation-delay:1.1s" width="70" height="40" viewBox="0 0 70 40" fill="none" aria-hidden="true" focusable="false">
+            <circle cx="8" cy="10" r="3.4" fill="#e07856" opacity=".32"/>
+            <circle cx="30" cy="30" r="2.8" fill="#3f8f6c" opacity=".32"/>
+            <circle cx="52" cy="8" r="3.2" fill="#e8b04a" opacity=".4"/>
+            <circle cx="64" cy="26" r="2.4" fill="#c96a5e" opacity=".32"/>
+            <circle cx="20" cy="22" r="2" fill="#e07856" opacity=".26"/>
+        </svg>
+
         <div class="sec-head">
             <div>
                 <h2>produk mio</h2>
@@ -1129,8 +1209,24 @@
         </svg>
     </div>
 
-    <!-- ===== POJOK CURHAT (4 catatan + lagu galau) ===== -->
+    <!-- ===== POJOK CURHAT ===== -->
     <section id="catatan" aria-label="Catatan dari mio dev">
+        <!-- coretan gelombang -->
+        <svg class="bgd" style="left:4%; bottom:18%; animation-delay:1s" width="92" height="14" viewBox="0 0 92 14" fill="none" aria-hidden="true" focusable="false">
+            <path d="M4 8 Q 12 2 20 8 T 36 8 T 52 8 T 68 8 T 88 8" stroke="#e07856" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+        </svg>
+        <!-- X jahitan -->
+        <svg class="bgd" style="right:5%; top:5%; animation-delay:2.2s" width="30" height="30" viewBox="0 0 30 30" fill="none" aria-hidden="true" focusable="false">
+            <path d="M5 5 L25 25 M25 5 L5 25" stroke="#c96a5e" stroke-width="2.8" stroke-linecap="round"/>
+        </svg>
+        <!-- konfeti -->
+        <svg class="bgd" style="right:6%; bottom:22%; animation-delay:.4s" width="64" height="34" viewBox="0 0 64 34" fill="none" aria-hidden="true" focusable="false">
+            <circle cx="10" cy="8" r="3" fill="#e8b04a" opacity=".4"/>
+            <circle cx="32" cy="24" r="2.6" fill="#c96a5e" opacity=".34"/>
+            <circle cx="50" cy="6" r="2.8" fill="#3f8f6c" opacity=".34"/>
+            <circle cx="58" cy="22" r="2.2" fill="#e07856" opacity=".3"/>
+        </svg>
+
         <div class="sec-head">
             <div>
                 <h2>pojok curhat</h2>
@@ -1193,7 +1289,6 @@
                 </article>
             </div>
 
-            <!-- navigasi: panah + titik -->
             <div class="notes-nav">
                 <button class="note-arrow" id="notePrev" aria-label="Catatan sebelumnya">
                     <svg class="ic" style="transform:rotate(180deg)" aria-hidden="true"><use href="#i-arrow"></use></svg>
@@ -1209,7 +1304,6 @@
                 </button>
             </div>
 
-            <!-- lagu galau -->
             <div class="sad-player" id="sadPlayer">
                 <button class="sad-btn" id="sadBtn" onclick="toggleSad()" aria-label="Putar lagu buat yang lagi galau">
                     <svg class="ic" aria-hidden="true"><use id="sadUse" href="#i-play"></use></svg>
@@ -1232,6 +1326,16 @@
 
     <!-- DEVELOPER -->
     <section id="dev">
+        <!-- awan -->
+        <svg class="bgd" style="right:6%; top:8%; animation-delay:1.5s" width="62" height="36" viewBox="0 0 62 36" fill="none" aria-hidden="true" focusable="false">
+            <path d="M14 30 C 7 30, 4 24, 9 20 C 9 13, 18 10, 22 15 C 27 10, 36 13, 34 20 C 40 21, 40 29, 32 30 Z" fill="rgba(63,143,108,.1)" stroke="#3f8f6c" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+        <!-- matahari kecil -->
+        <svg class="bgd" style="left:5%; top:16%; animation-delay:.6s" width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true" focusable="false">
+            <circle cx="18" cy="18" r="5.5" fill="rgba(232,176,74,.3)" stroke="#e8b04a" stroke-width="2"/>
+            <path d="M18 2.5 V7 M18 29 V33.5 M2.5 18 H7 M29 18 H33.5" stroke="#e8b04a" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+
         <div class="sec-head">
             <div>
                 <h2>developer</h2>
@@ -1284,6 +1388,14 @@
     </section>
 
     <footer>
+        <!-- lingkaran kecil -->
+        <svg class="bgd" style="right:10%; top:16%; animation-delay:.9s" width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true" focusable="false">
+            <path d="M13 3 C 19.5 4, 23 8.5, 22 14 C 21 19.5, 15.5 23, 10 22 C 5 21, 2.5 16, 4 11 C 5.5 7, 9.5 3.3, 14.5 4" stroke="#e8b04a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </svg>
+        <!-- asterisk kecil -->
+        <svg class="bgd" style="left:8%; bottom:12%; animation-delay:1.7s" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+            <path d="M12 2 V22 M3.5 7 L20.5 17 M20.5 7 L3.5 17" stroke="#3f8f6c" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
         <span class="foot-hand">dibikin pelan-pelan, bukan template ✌️</span>
         <p class="foot-sub">© 2025 mio dev — toko kecil, semangat besar</p>
         <p class="foot-upd">halaman terakhir dicek: <span id="updateDate"></span></p>
@@ -1403,7 +1515,7 @@
                 playBtn.setAttribute('aria-label', 'Putar musik');
                 playerBox.classList.remove('playing');
             } else {
-                if (typeof stopSad === 'function' && sadPlaying) stopSad(); // matiin lagu galau biar nggak tabrakan
+                if (typeof stopSad === 'function' && sadPlaying) stopSad();
                 audio.play().catch(() => {});
                 playUse.setAttribute('href', '#i-pause');
                 playBtn.setAttribute('aria-label', 'Jeda musik');
@@ -1412,7 +1524,7 @@
             isPlaying = !isPlaying;
         }
 
-        // ===== LAGU GALAU (pojok curhat) =====
+        // ===== LAGU GALAU =====
         const sadAudio = document.getElementById('sadAudio');
         const sadUse = document.getElementById('sadUse');
         const sadBtn = document.getElementById('sadBtn');
@@ -1429,7 +1541,7 @@
         }
         function toggleSad() {
             if (sadPlaying) { stopSad(); return; }
-            if (isPlaying) { // matiin radio dulu biar nggak tabrakan suara
+            if (isPlaying) {
                 audio.pause();
                 playUse.setAttribute('href', '#i-play');
                 playBtn.setAttribute('aria-label', 'Putar musik');
